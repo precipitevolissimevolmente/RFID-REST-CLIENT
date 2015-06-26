@@ -43,7 +43,7 @@
             <div class="panel-body"><h3 class="text-center">{{data.serialNumber}}</h3></div>
             <div class="panel-footer clearfix">
                 <div class="pull-left">
-                    <a  ng-click="getCardUID()" class="btn btn-primary">GET</a>
+                    <a ng-click="getCardUID()" class="btn btn-primary">GET</a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="panel-footer clearfix">
                 <div class="pull-left">
-                    <a  ng-click="getCardDetails()" class="btn btn-primary">GET</a>
+                    <a ng-click="getCardDetails()" class="btn btn-primary">GET</a>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
             </div>
             <div class="panel-footer clearfix">
                 <div class="pull-left">
-                    <a  ng-click="authenticateBlock()" class="btn btn-primary">POST</a>
+                    <a ng-click="authenticateBlock()" class="btn btn-primary">POST</a>
                 </div>
             </div>
         </div>
@@ -168,13 +168,6 @@
                     <a ng-click="writeDataBlock()" class="btn btn-primary">POST</a>
                 </div>
             </div>
-        </div>
-
-        <div ng-controller="FetchController">
-            <button id="pay" ng-click="payTax()">Pay</button>
-            <br>
-
-            <p>Card serial number: {{data}}</p>
         </div>
 
         <div ng-controller="SpicyController" hidden="true">
