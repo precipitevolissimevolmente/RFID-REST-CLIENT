@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Demo RFID</title>
+    <script src="js/angular-1.4.0/angular.js"></script>
+    <script src="js/controller.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bootstrap/css/jumbotron-narrow.css"/>
+    <!--<script src="js/jquery-1.11.3.min.js"></script>-->
+    <!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css"/>
+</head>
+<body ng-app="rfidController">
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="index.html">Card Info</a></li>
+                <li role="presentation" class="active"><a href="atm.html">ATM</a></li>
+                <li role="presentation"><a href="bus.html">BUS</a></li>
+                <li role="presentation"><a href="creditCard.html">CREDIT CARD</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">RFID</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>ATM</h1>
+
+        <p class="lead" hidden="true">...</p>
+    </div>
+
+    <div class="main">
+
+        <div ng-controller="FetchController" class="panel panel-default">
+            <div class="panel-heading">Card serial number (UID):</div>
+            <div class="panel-body"><h3 class="text-center">{{data.serialNumber}}</h3></div>
+            <div class="panel-footer clearfix">
+                <div class="pull-left">
+                    <a  ng-click="getCardUID()" class="btn btn-primary">GET</a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-controller="FetchController" class="panel panel-default">
+            <div class="panel-heading">Card details:</div>
+            <div class="panel-body">
+                <h3 class="text-center">ATR:</h3>
+
+                <h3 class="text-center">{{data.ATR}}</h3>
+
+                <h3 class="text-center">Details:</h3>
+                <h4 class="text-center">{{data.details}}</h4>
+            </div>
+            <div class="panel-footer clearfix">
+                <div class="pull-left">
+                    <a  ng-click="getCardDetails()" class="btn btn-primary">GET</a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-controller="FetchController" class="panel panel-default">
+            <div class="panel-heading">Load key:</div>
+            <div class="panel-body">
+                <div id="key" class="clearfix">
+                    <div class="col-xs-2">
+                        <label for="ex1">Key 1</label>
+                        <input class="form-control" ng-model="key1" id="ex1" ng-maxlength="3" type="number">
+                    </div>
+                    <div class="col-xs-2">
+                        <label for="ex2">Key 2</label>
+                        <input class="form-control" ng-model="key2" id="ex2" type="number" maxlength="3" required/>
+                    </div>
+                    <div class="col-xs-2">
+                        <label for="ex3">Key 3</label>
+                        <input class="form-control" ng-model="key3" id="ex3" type="number" maxlength="3" required/>
+                    </div>
+                    <div class="col-xs-2">
+                        <label for="ex4">Key 4</label>
+                        <input class="form-control" ng-model="key4" id="ex4" type="number" maxlength="3" required/>
+                    </div>
+                    <div class="col-xs-2">
+                        <label for="ex5">Key 5</label>
+                        <input class="form-control" ng-model="key5" id="ex5" type="number" maxlength="3" required/>
+                    </div>
+                    <div class="col-xs-2">
+                        <label for="ex6">Key 6</label>
+                        <input class="form-control" ng-model="key6" id="ex6" type="number" maxlength="3" required/>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="clearfix">
+                    <label for="ex6">Block number</label>
+                    <input type="number" name="blockNumber" ng-model="blockNumber" class="form-control" maxlength="2"
+                           placeholder="Block number">
+                </div>
+                <div class="result clearfix">
+                    <h4 class="text-center">Load-key: {{data.LoadKey}}</h4>
+                    <h4 class="text-center">Authentication: {{data.authentication}}</h4>
+                    <h6 class="text-center">{{data}}</h6>
+                </div>
+            </div>
+            <div class="panel-footer clearfix">
+                <div class="pull-left">
+                    <a  ng-click="authenticateBlock()" class="btn btn-primary">POST</a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-controller="FetchController" class="panel panel-default">
+            <div class="panel-heading">Read block Hex:</div>
+            <div class="panel-body">
+                <div class="clearfix">
+                    <label for="ex6">Block number</label>
+                    <input type="number" ng-model="blockNumberToRead" class="form-control" maxlength="2"
+                           placeholder="Block number">
+                </div>
+                <h4 class="text-center">Data in hex format: {{data.dataBlock}}</h4>
+                <h6 class="text-center">{{data}}</h6>
+            </div>
+            <div class="panel-footer clearfix">
+                <div class="pull-left">
+                    <a ng-click="readDataBlock()" class="btn btn-primary">GET</a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-controller="FetchController" class="panel panel-default">
+            <div class="panel-heading">Read block Ascii:</div>
+            <div class="panel-body">
+                <div class="clearfix">
+                    <label for="ex6">Block number</label>
+                    <input type="number" ng-model="blockNumberToReadA" class="form-control" maxlength="2"
+                           placeholder="Block number">
+                </div>
+                <h4 class="text-center">Data in Ascii format: {{data.dataBlock}}</h4>
+                <h6 class="text-center">{{data}}</h6>
+            </div>
+            <div class="panel-footer clearfix">
+                <div class="pull-left">
+                    <a ng-click="readDataBlockAscii()" class="btn btn-primary">GET</a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-controller="FetchController" class="panel panel-default">
+            <div class="panel-heading">Write block:</div>
+            <div class="panel-body">
+                <div class="clearfix">
+                    <label for="ex6">Block number</label>
+                    <input type="number" ng-model="blockNumberToWrite" class="form-control" maxlength="2"
+                           placeholder="Block number">
+                    <input type="text" ng-model="dataToWrite" class="form-control" maxlength="16"
+                           placeholder="Data">
+                </div>
+                <h4 class="text-center">Status: {{data.write}}</h4>
+                <h6 class="text-center">{{data}}</h6>
+            </div>
+            <div class="panel-footer clearfix">
+                <div class="pull-left">
+                    <a ng-click="writeDataBlock()" class="btn btn-primary">POST</a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-controller="FetchController">
+            <button id="pay" ng-click="payTax()">Pay</button>
+            <br>
+
+            <p>Card serial number: {{data}}</p>
+        </div>
+
+        <div ng-controller="SpicyController" hidden="true">
+            <button ng-click="chiliSpicy()">Chili</button>
+            <button ng-click="jalapenoSpicy()">Jalapeño</button>
+            <p>The food is {{spice}} spicy!</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Cebanu Ghenadie 2015</p>
+    </footer>
+
+</div>
+<!-- /container -->
+
+</body>
+</html>
