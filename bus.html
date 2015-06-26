@@ -22,8 +22,8 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation"><a href="index.html">Card Info</a></li>
-                <li role="presentation" class="active"><a href="atm.html">ATM</a></li>
-                <li role="presentation"><a href="bus.html">BUS</a></li>
+                <li role="presentation"><a href="atm.html">ATM</a></li>
+                <li role="presentation" class="active"><a href="bus.html">BUS</a></li>
                 <li role="presentation"><a href="creditCard.html">CREDIT CARD</a></li>
             </ul>
         </nav>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="jumbotron">
-        <h1>ATM</h1>
+        <h1>BUS</h1>
 
         <p class="lead" hidden="true">...</p>
     </div>
@@ -40,8 +40,7 @@
 
         <div ng-controller="FetchController" class="panel panel-default">
             <div class="panel-heading">Current Amount:</div>
-            <div class="panel-body"><h4 class="text-center">{{data.amount}} {{data.status}}</h4></div>
-            <div class="panel-body"><h4 class="text-center">Tickets:{{data.tickets}}</h4></div>
+            <div class="panel-body"><h3 class="text-center">{{data.amount}} {{data.status}}</h3></div>
             <div class="panel-body"><h6 class="text-center">{{data}}</h6></div>
             <div class="panel-footer clearfix">
                 <div class="pull-left">
@@ -51,27 +50,30 @@
         </div>
 
         <div ng-controller="FetchController" class="panel panel-default">
-            <div class="panel-heading">Charge tag:</div>
+            <div class="panel-heading">Pay:</div>
             <div class="panel-body">
                 <div class="clearfix">
-                    <label>Amount</label>
-                    <input type="number" ng-model="amount" required class="form-control" maxlength="3"
-                           placeholder="Amount RON">
+                    <label>Number of tickets</label>
+                    <input type="number" ng-model="numberOfTickets" required class="form-control" maxlength="3"
+                           placeholder="Tickets">
                 </div>
-                <h4 class="text-center">{{data.status}}</h4>
+                <h5 class="text-center">{{data.status}}</h5>
                 <h4 class="text-center">{{data.error}}</h4>
-                <h4 class="text-center">{{data.totalAmount}}</h4>
-                <h4 class="text-center">{{data.hashChain}}</h4>
-                <h4 class="text-center">{{data.write}}</h4>
+                <h4 class="text-center">{{data.left}}</h4>
+                <h4 class="text-center">{{data.time}}</h4>
                 <h6 class="text-center">{{data}}</h6>
             </div>
             <div class="panel-footer clearfix">
                 <div class="pull-left">
-                    <a ng-click="charge()" class="btn btn-primary">POST</a>
+                    <a ng-click="payTax()" class="btn btn-primary">POST</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <footer class="footer">
+        <p>&copy; Cebanu Ghenadie 2015</p>
+    </footer>
 
 </div>
 <!-- /container -->

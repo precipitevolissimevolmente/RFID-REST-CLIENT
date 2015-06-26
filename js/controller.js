@@ -132,23 +132,6 @@
                 });
             };
 
-            $scope.payTax = function () {
-                $scope.method = 'GET';
-                $scope.url = 'http://127.0.0.1:8080/RfidRestApp/rest/rfid/payTax';
-                $scope.code = null;
-                $scope.response = null;
-
-                $http({method: $scope.method, url: $scope.url}).
-                    success(function (data, status) {
-                        $scope.status = status;
-                        $scope.data = data;
-                    }).
-                    error(function (data, status) {
-                        $scope.data = data || "Request failed";
-                        $scope.status = status;
-                    });
-            };
-
             //-------------ATM------------------------------------------------------------------------------------------
             $scope.getCardCurrentAmount = function () {
                 $scope.method = 'GET';
@@ -165,6 +148,41 @@
                         $scope.data = data || "Request failed";
                         $scope.status = status;
                     });
+            };
+
+            $scope.charge = function () {
+                var req = {
+                    method: 'POST',
+                    url: 'http://127.0.0.1:8080/ARC122API/rest/card/charge/' + $scope.amount,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                $http(req).success(function (data, status) {
+                    $scope.status = status;
+                    $scope.data = data;
+                }).error(function (data, status) {
+                    $scope.data = data || "Request failed";
+                    $scope.status = status;
+                });
+            };
+
+            //-----------BUS--------------------------------------------------------------------------------------------
+            $scope.payTax = function () {
+                var req = {
+                    method: 'POST',
+                    url: 'http://127.0.0.1:8080/ARC122API/rest/card/pay/' + $scope.numberOfTickets,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                $http(req).success(function (data, status) {
+                    $scope.status = status;
+                    $scope.data = data;
+                }).error(function (data, status) {
+                    $scope.data = data || "Request failed";
+                    $scope.status = status;
+                });
             };
         }]);
 })(window.angular);
