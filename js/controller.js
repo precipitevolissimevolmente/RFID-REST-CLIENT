@@ -202,5 +202,22 @@
                         $scope.status = status;
                     });
             };
+            //-------------Ticket Inspector-----------------------------------------------------------------------------
+            $scope.inspector = function () {
+                $scope.method = 'GET';
+                $scope.url = 'http://127.0.0.1:8080/ARC122API/rest/card/certificate';
+                $scope.code = null;
+                $scope.response = null;
+
+                $http({method: $scope.method, url: $scope.url}).
+                    success(function (data, status) {
+                        $scope.status = status;
+                        $scope.data = data;
+                    }).
+                    error(function (data, status) {
+                        $scope.data = data || "Request failed";
+                        $scope.status = status;
+                    });
+            };
         }]);
 })(window.angular);
